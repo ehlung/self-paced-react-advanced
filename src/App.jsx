@@ -88,7 +88,6 @@ function App() {
 }
 
 const FilterContainer = styled.section`
-  /* .restaurant-filter-container */
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
@@ -96,7 +95,6 @@ const FilterContainer = styled.section`
 `;
 
 const ListContainer = styled.section`
-  /* .restaurant-list-container */
   display: flex;
   flex-direction: column;
   padding: 0 16px;

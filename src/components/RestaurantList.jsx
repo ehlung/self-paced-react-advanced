@@ -36,7 +36,6 @@ export default function RestaurantList({ restaurants = [], onSelect }) {
 const List = styled.ul``;
 
 const ListItem = styled.li`
-  /* .restaurant */
   display: flex;
   align-items: flex-start;
   padding: 16px 8px;
@@ -45,7 +44,6 @@ const ListItem = styled.li`
 `;
 
 const Category = styled.div`
-  /* .restaurant__category */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,26 +57,22 @@ const Category = styled.div`
 `;
 
 const CategoryIcon = styled.img`
-  /* .category-icon */
   width: 36px;
   height: 36px;
 `;
 
 const Info = styled.div`
-  /* .restaurant__info */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 `;
 
 const RestaurantName = styled.h3`
-  /* .restaurant__name */
   margin: 0;
   ${typography.subtitle}
 `;
 
 const RestaurantDescription = styled.p`
-  /* .restaurant__description */
   display: -webkit-box;
   padding-top: 8px;
   overflow: hidden;

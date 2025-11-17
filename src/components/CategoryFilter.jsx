@@ -26,10 +26,7 @@ export default function CategoryFilter({
 }
 
 const StyledSelect = styled.select`
-  /* .restaurant-filter */
   padding: 8px;
-
-  /* .restaurant-filter-container select */
   height: 44px;
   min-width: 125px;
   border: 1px solid #d0d5dd;

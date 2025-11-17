@@ -75,7 +75,6 @@ export default function AddRestaurantModal({ onAdd, onClose }) {
 }
 
 const ModalTitle = styled.h2`
-  /* .modal-title */
   margin-bottom: 36px;
   ${typography.title}
 `;
@@ -85,7 +84,6 @@ const FormItem = styled.div`
 `;
 
 const FormItemRequired = styled(FormItem)`
-  /* .form-item--required */
   label::after {
     padding-left: 4px;
     color: var(--primary-color);
@@ -94,38 +92,32 @@ const FormItemRequired = styled(FormItem)`
 `;
 
 const StyledLabel = styled.label`
-  /* .form-item label */
   color: var(--grey-400);
   ${typography.caption}
 `;
 
 const HelpText = styled.span`
-  /* .form-item .help-text */
   color: var(--grey-300);
   ${typography.caption}
 `;
 
 const StyledInput = styled.input`
   ${formInputBase}
-  /* input[name="name"] */
   height: 44px;
 `;
 
 const StyledTextarea = styled.textarea`
   ${formInputBase}
-  /* .form-item textarea */
   resize: none;
 `;
 
 const StyledSelect = styled.select`
   ${formInputBase}
-  /* .form-item select */
   height: 44px;
   color: var(--grey-300);
 `;
 
 const ButtonContainer = styled.div`
-  /* .button-container */
   display: flex;
 `;
 

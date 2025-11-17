@@ -22,13 +22,11 @@ export default function RestaurantDetailModal({ restaurant, onClose }) {
 }
 
 const ModalTitle = styled.h2`
-  /* .modal-title */
   margin-bottom: 36px;
   ${typography.title}
 `;
 
 const RestaurantInfo = styled.div`
-  /* .restaurant-info */
   margin-bottom: 24px;
 `;
 
@@ -37,7 +35,6 @@ const DescriptionText = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  /* .button-container */
   display: flex;
 `;
 
