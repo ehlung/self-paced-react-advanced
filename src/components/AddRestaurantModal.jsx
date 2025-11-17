@@ -12,10 +12,18 @@ export default function AddRestaurantModal({ onAdd, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const category = fd.get("category");
+    const name = fd.get("name");
+    const description = fd.get("description") || "";
+
+    if (!category || !name) {
+      return;
+    }
+
     onAdd({
-      category: String(fd.get("category") || ""),
-      name: String(fd.get("name") || ""),
-      description: String(fd.get("description") || ""),
+      category: String(category),
+      name: String(name),
+      description: String(description),
     });
   };
 
