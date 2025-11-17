@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 
+import useModal from "./hooks/useModal";
 import Header from "./components/Header";
 import CategoryFilter from "./components/CategoryFilter";
 import RestaurantList from "./components/RestaurantList";
@@ -21,11 +22,13 @@ function App() {
 
   const [selected, setSelected] = useState(null);
   const handleSelectRestaurant = (restaurant) => setSelected(restaurant);
-  const handleCloseModal = () => setSelected(null);
+  const handleDeselectRestaurant = () => setSelected(null);
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const handleOpenAddModal = () => setIsAddModalOpen(true);
-  const handleCloseAddModal = () => setIsAddModalOpen(false);
+  const {
+    isOpen: isAddModalOpen,
+    open: handleOpenAddModal,
+    close: handleCloseAddModal,
+  } = useModal(false);
 
   const fetchRestaurants = useCallback(async () => {
     const response = await fetch(API_URL);
@@ -46,7 +49,7 @@ function App() {
       body: JSON.stringify({ name, description, category }),
     });
 
-    setIsAddModalOpen(false);
+    handleCloseAddModal();
     await fetchRestaurants();
   };
 
@@ -73,7 +76,7 @@ function App() {
         {selected && (
           <RestaurantDetailModal
             restaurant={selected}
-            onClose={handleCloseModal}
+            onClose={handleDeselectRestaurant}
           />
         )}
         {isAddModalOpen && (
