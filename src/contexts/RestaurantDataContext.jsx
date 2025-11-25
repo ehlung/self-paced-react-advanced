@@ -1,20 +1,13 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import useModal from "../hooks/useModal";
 
 const API_URL = "http://localhost:3000/restaurants";
 
-const RestaurantContext = createContext(null);
+const RestaurantDataContext = createContext(null);
 
-export const RestaurantProvider = ({ children }) => {
+export const RestaurantDataProvider = ({ children }) => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [category, setCategory] = useState("전체");
   const [selected, setSelected] = useState(null);
-
-  const {
-    isOpen: isAddModalOpen,
-    open: openAddModal,
-    close: closeAddModal,
-  } = useModal(false);
 
   const fetchRestaurants = useCallback(async () => {
     const response = await fetch(API_URL);
@@ -43,7 +36,6 @@ export const RestaurantProvider = ({ children }) => {
       body: JSON.stringify({ name, description, category }),
     });
 
-    closeAddModal();
     await fetchRestaurants();
   };
 
@@ -52,20 +44,17 @@ export const RestaurantProvider = ({ children }) => {
     category,
     filteredRestaurants,
     selected,
-    isAddModalOpen,
     setCategory,
-    openAddModal,
-    closeAddModal,
     selectRestaurant,
     deselectRestaurant,
     addRestaurant,
   };
 
   return (
-    <RestaurantContext.Provider value={value}>
+    <RestaurantDataContext.Provider value={value}>
       {children}
-    </RestaurantContext.Provider>
+    </RestaurantDataContext.Provider>
   );
 };
 
-export default RestaurantContext;
+export default RestaurantDataContext;
