@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -9,7 +8,8 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
 
-const API_URL = "http://localhost:3000/restaurants";
+import useRestaurantDataContext from "./hooks/useRestaurantDataContext";
+import useRestaurantModalContext from "./hooks/useRestaurantModalContext";
 
 function App() {
   const { selected, fetchRestaurants } = useRestaurantDataContext();
@@ -18,46 +18,26 @@ function App() {
   useEffect(() => {
     fetchRestaurants();
   }, [fetchRestaurants]);
-
   return (
     <>
-      <Header onOpenAddModal={handleOpenAddModal} />
+      <Header />
       <main>
         <FilterContainer>
-          <CategoryFilter
-            id="main-category-filter"
-            label="음식점 카테고리 필터"
-            category={category}
-            onChangeCategory={setCategory}
-          />
+          <CategoryFilter />
         </FilterContainer>
         <ListContainer>
-          <RestaurantList
-            restaurants={filteredRestaurants}
-            onSelect={handleSelectRestaurant}
-          />
+          <RestaurantList />
         </ListContainer>
       </main>
       <aside>
-        {selected && (
-          <RestaurantDetailModal
-            restaurant={selected}
-            onClose={handleCloseModal}
-          />
-        )}
-        {isAddModalOpen && (
-          <AddRestaurantModal
-            onAdd={handleAddRestaurant}
-            onClose={handleCloseAddModal}
-          />
-        )}
+        {selected && <RestaurantDetailModal />}
+        {isAddModalOpen && <AddRestaurantModal />}
       </aside>
     </>
   );
 }
 
 const FilterContainer = styled.section`
-  /* .restaurant-filter-container */
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
@@ -65,7 +45,6 @@ const FilterContainer = styled.section`
 `;
 
 const ListContainer = styled.section`
-  /* .restaurant-list-container */
   display: flex;
   flex-direction: column;
   padding: 0 16px;

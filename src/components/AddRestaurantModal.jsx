@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import {
   typography,
   formInputBase,
@@ -7,20 +7,35 @@ import {
   buttonVariants,
 } from "../styles/common";
 import Modal from "./Modal.jsx";
+import useRestaurantDataContext from "../hooks/useRestaurantDataContext";
+import useRestaurantModalContext from "../hooks/useRestaurantModalContext";
 
-export default function AddRestaurantModal({ onAdd, onClose }) {
-  const handleSubmit = (e) => {
+export default function AddRestaurantModal() {
+  const { addRestaurant } = useRestaurantDataContext();
+  const { closeAddModal } = useRestaurantModalContext();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    onAdd({
-      category: String(fd.get("category") || ""),
-      name: String(fd.get("name") || ""),
-      description: String(fd.get("description") || ""),
+    const category = fd.get("category");
+    const name = fd.get("name");
+    const description = fd.get("description") || "";
+
+    if (!category || !name) {
+      return;
+    }
+
+    await addRestaurant({
+      category,
+      name,
+      description,
     });
+
+    closeAddModal();
   };
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={closeAddModal}>
       <ModalTitle>새로운 음식점</ModalTitle>
 
       <form onSubmit={handleSubmit}>
@@ -67,7 +82,6 @@ export default function AddRestaurantModal({ onAdd, onClose }) {
 }
 
 const ModalTitle = styled.h2`
-  /* .modal-title */
   margin-bottom: 36px;
   ${typography.title}
 `;
@@ -77,7 +91,6 @@ const FormItem = styled.div`
 `;
 
 const FormItemRequired = styled(FormItem)`
-  /* .form-item--required */
   label::after {
     padding-left: 4px;
     color: var(--primary-color);
@@ -86,38 +99,32 @@ const FormItemRequired = styled(FormItem)`
 `;
 
 const StyledLabel = styled.label`
-  /* .form-item label */
   color: var(--grey-400);
   ${typography.caption}
 `;
 
 const HelpText = styled.span`
-  /* .form-item .help-text */
   color: var(--grey-300);
   ${typography.caption}
 `;
 
 const StyledInput = styled.input`
   ${formInputBase}
-  /* input[name="name"] */
   height: 44px;
 `;
 
 const StyledTextarea = styled.textarea`
   ${formInputBase}
-  /* .form-item textarea */
   resize: none;
 `;
 
 const StyledSelect = styled.select`
   ${formInputBase}
-  /* .form-item select */
   height: 44px;
   color: var(--grey-300);
 `;
 
 const ButtonContainer = styled.div`
-  /* .button-container */
   display: flex;
 `;
 

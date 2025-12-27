@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
-export default function Modal({
-  onClose,
-  children, // 모달 내부 내용 props로 전달
-}) {
+export default function Modal({ onClose, children }) {
   return (
     <Wrapper>
       <Backdrop onClick={onClose} />
@@ -19,12 +16,10 @@ export default function Modal({
 }
 
 const Wrapper = styled.div`
-  /* .modal--open */
   display: block;
 `;
 
 const Backdrop = styled.div`
-  /* .modal-backdrop */
   position: fixed;
   top: 0;
   right: 0;
@@ -34,7 +29,6 @@ const Backdrop = styled.div`
 `;
 
 const Container = styled.div`
-  /* .modal-container */
   position: fixed;
   bottom: 0;
   width: 100%;
