@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 import Header from "./components/Header";
 import CategoryFilter from "./components/CategoryFilter";
@@ -11,44 +12,12 @@ import AddRestaurantModal from "./components/AddRestaurantModal";
 const API_URL = "http://localhost:3000/restaurants";
 
 function App() {
-  const [restaurantList, setRestaurantList] = useState([]);
-  const [category, setCategory] = useState("전체");
-
-  const filteredRestaurants =
-    category === "전체"
-      ? restaurantList
-      : restaurantList.filter((restaurant) => restaurant.category === category);
-
-  const [selected, setSelected] = useState(null);
-  const handleSelectRestaurant = (restaurant) => setSelected(restaurant);
-  const handleCloseModal = () => setSelected(null);
-
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const handleOpenAddModal = () => setIsAddModalOpen(true);
-  const handleCloseAddModal = () => setIsAddModalOpen(false);
-
-  const fetchRestaurants = useCallback(async () => {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    setRestaurantList(data);
-  }, []);
+  const { selected, fetchRestaurants } = useRestaurantDataContext();
+  const { isAddModalOpen } = useRestaurantModalContext();
 
   useEffect(() => {
     fetchRestaurants();
   }, [fetchRestaurants]);
-
-  const handleAddRestaurant = async ({ name, description, category }) => {
-    await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, description, category }),
-    });
-
-    setIsAddModalOpen(false);
-    await fetchRestaurants();
-  };
 
   return (
     <>
