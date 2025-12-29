@@ -1,16 +1,32 @@
-import { useContext } from "react";
-import RestaurantDataContext from "../contexts/RestaurantDataContext";
+import useRestaurantStore from "../store/useRestaurantStore";
 
 const useRestaurantDataContext = () => {
-  const context = useContext(RestaurantDataContext);
+  const restaurantList = useRestaurantStore((s) => s.restaurantList);
+  const category = useRestaurantStore((s) => s.category);
+  const selected = useRestaurantStore((s) => s.selected);
 
-  if (context === null) {
-    throw new Error(
-      "useRestaurantDataContext는 RestaurantDataProvider 내부에서만 사용할 수 있습니다."
-    );
-  }
+  const setCategory = useRestaurantStore((s) => s.setCategory);
+  const selectRestaurant = useRestaurantStore((s) => s.selectRestaurant);
+  const deselectRestaurant = useRestaurantStore((s) => s.deselectRestaurant);
+  const addRestaurant = useRestaurantStore((s) => s.addRestaurant);
+  const fetchRestaurants = useRestaurantStore((s) => s.fetchRestaurants);
 
-  return context;
+  const filteredRestaurants =
+    category === "전체"
+      ? restaurantList
+      : restaurantList.filter((r) => r.category === category);
+
+  return {
+    restaurantList,
+    category,
+    filteredRestaurants,
+    selected,
+    setCategory,
+    selectRestaurant,
+    deselectRestaurant,
+    addRestaurant,
+    fetchRestaurants,
+  };
 };
 
 export default useRestaurantDataContext;

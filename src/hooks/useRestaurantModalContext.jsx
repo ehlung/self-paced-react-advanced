@@ -1,16 +1,15 @@
-import { useContext } from "react";
-import RestaurantModalContext from "../contexts/RestaurantModalContext";
+import useRestaurantModalStore from "../store/useRestaurantModalStore";
 
 const useRestaurantModalContext = () => {
-  const context = useContext(RestaurantModalContext);
+  const isAddModalOpen = useRestaurantModalStore((s) => s.isAddModalOpen);
+  const openAddModal = useRestaurantModalStore((s) => s.openAddModal);
+  const closeAddModal = useRestaurantModalStore((s) => s.closeAddModal);
 
-  if (context === null) {
-    throw new Error(
-      "useRestaurantModalContext는 RestaurantModalProvider 내부에서만 사용할 수 있습니다."
-    );
-  }
-
-  return context;
+  return {
+    isAddModalOpen,
+    openAddModal,
+    closeAddModal,
+  };
 };
 
 export default useRestaurantModalContext;
