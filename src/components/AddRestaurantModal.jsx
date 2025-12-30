@@ -72,7 +72,7 @@ export default function AddRestaurantModal() {
         </FormItem>
 
         <ButtonContainer>
-          <StyledButton variant="primary" type="submit">
+          <StyledButton $variant="primary" type="submit">
             추가하기
           </StyledButton>
         </ButtonContainer>
@@ -130,5 +130,5 @@ const ButtonContainer = styled.div`
 
 const StyledButton = styled.button`
   ${buttonBase}
-  ${({ variant }) => buttonVariants[variant] || buttonVariants.secondary}
+  ${({ $variant }) => buttonVariants[$variant] || buttonVariants.secondary}
 `;

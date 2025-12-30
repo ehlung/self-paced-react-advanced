@@ -19,7 +19,7 @@ export default function RestaurantDetailModal() {
 
       <ButtonContainer>
         <StyledButton
-          variant="primary"
+          $variant="primary"
           type="button"
           onClick={deselectRestaurant}
         >
@@ -49,5 +49,5 @@ const ButtonContainer = styled.div`
 
 const StyledButton = styled.button`
   ${buttonBase}
-  ${({ variant }) => buttonVariants[variant] || buttonVariants.secondary}
+  ${({ $variant }) => buttonVariants[$variant] || buttonVariants.secondary}
 `;
