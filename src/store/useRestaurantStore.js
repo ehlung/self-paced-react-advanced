@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 const API_URL = "http://localhost:3000/restaurants";
 
@@ -12,16 +12,10 @@ const CATEGORY_OPTIONS = [
   "아시안",
   "기타",
 ];
+
 const normalizeCategory = (value) => {
   if (typeof value !== "string") return "전체";
   return CATEGORY_OPTIONS.includes(value) ? value : "전체";
-};
-
-// sessionStorage를 persist storage로 사용
-const sessionStorageImpl = {
-  getItem: (name) => sessionStorage.getItem(name),
-  setItem: (name, value) => sessionStorage.setItem(name, value),
-  removeItem: (name) => sessionStorage.removeItem(name),
 };
 
 const useRestaurantStore = create(
@@ -55,12 +49,11 @@ const useRestaurantStore = create(
       },
     }),
     {
-      // 새로고침 후에도 category만 유지하도록 제한
       name: "restaurant-store",
       partialize: (state) => ({ category: state.category }),
 
-      // sessionStorage 사용
-      storage: sessionStorageImpl,
+      // sessionStorage 수정
+      storage: createJSONStorage(() => sessionStorage),
 
       onRehydrateStorage: () => (state) => {
         if (!state) return;
