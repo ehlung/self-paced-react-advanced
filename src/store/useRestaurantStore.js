@@ -17,6 +17,13 @@ const normalizeCategory = (value) => {
   return CATEGORY_OPTIONS.includes(value) ? value : "전체";
 };
 
+// sessionStorage를 persist storage로 사용
+const sessionStorageImpl = {
+  getItem: (name) => sessionStorage.getItem(name),
+  setItem: (name, value) => sessionStorage.setItem(name, value),
+  removeItem: (name) => sessionStorage.removeItem(name),
+};
+
 const useRestaurantStore = create(
   persist(
     (set, get) => ({
@@ -51,10 +58,12 @@ const useRestaurantStore = create(
       // 새로고침 후에도 category만 유지하도록 제한
       name: "restaurant-store",
       partialize: (state) => ({ category: state.category }),
+
+      // sessionStorage 사용
+      storage: sessionStorageImpl,
+
       onRehydrateStorage: () => (state) => {
         if (!state) return;
-
-        // 로컬스토리지 값은 신뢰하지 않고 도메인 검증 후 보정
         const safe = normalizeCategory(state.category);
         if (safe !== state.category) state.setCategory(safe);
       },
