@@ -1,6 +1,6 @@
 import useRestaurantModalStore from "../store/useRestaurantModalStore";
 
-const useRestaurantModalContext = () => {
+const useRestaurantModal = () => {
   const isAddModalOpen = useRestaurantModalStore((s) => s.isAddModalOpen);
   const openAddModal = useRestaurantModalStore((s) => s.openAddModal);
   const closeAddModal = useRestaurantModalStore((s) => s.closeAddModal);
@@ -12,4 +12,4 @@ const useRestaurantModalContext = () => {
   };
 };
 
-export default useRestaurantModalContext;
+export default useRestaurantModal;

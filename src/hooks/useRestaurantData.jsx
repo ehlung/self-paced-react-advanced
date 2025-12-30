@@ -1,6 +1,6 @@
 import useRestaurantStore from "../store/useRestaurantStore";
 
-const useRestaurantDataContext = () => {
+const useRestaurantData = () => {
   const restaurantList = useRestaurantStore((s) => s.restaurantList);
   const category = useRestaurantStore((s) => s.category);
   const selected = useRestaurantStore((s) => s.selected);
@@ -29,4 +29,4 @@ const useRestaurantDataContext = () => {
   };
 };
 
-export default useRestaurantDataContext;
+export default useRestaurantData;

@@ -8,12 +8,12 @@ import RestaurantList from "./components/RestaurantList";
 import RestaurantDetailModal from "./components/RestaurantDetailModal";
 import AddRestaurantModal from "./components/AddRestaurantModal";
 
-import useRestaurantDataContext from "./hooks/useRestaurantDataContext";
-import useRestaurantModalContext from "./hooks/useRestaurantModalContext";
+import useRestaurantData from "./hooks/useRestaurantData";
+import useRestaurantModal from "./hooks/useRestaurantModal";
 
 function App() {
-  const { selected, fetchRestaurants } = useRestaurantDataContext();
-  const { isAddModalOpen } = useRestaurantModalContext();
+  const { selected, fetchRestaurants } = useRestaurantData();
+  const { isAddModalOpen } = useRestaurantModal();
 
   useEffect(() => {
     fetchRestaurants();
