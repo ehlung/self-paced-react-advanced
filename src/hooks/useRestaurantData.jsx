@@ -27,7 +27,33 @@ export default function useRestaurantData() {
 
   const addRestaurantMutation = useMutation({
     mutationFn: createRestaurant,
-    onSuccess: () => {
+
+    // Optimistic Update
+    onMutate: async (newRestaurant) => {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEY });
+
+      const previous = queryClient.getQueryData(QUERY_KEY);
+
+      const optimisticItem = {
+        id: `optimistic-${Date.now()}`,
+        ...newRestaurant,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, (old) => {
+        const current = Array.isArray(old) ? old : [];
+        return [optimisticItem, ...current];
+      });
+
+      return { previous };
+    },
+
+    onError: (err, newRestaurant, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(QUERY_KEY, context.previous);
+      }
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
     },
   });
