@@ -1,6 +1,5 @@
 import "./App.css";
 import styled from "styled-components";
-import { useEffect } from "react";
 
 import Header from "./components/Header";
 import CategoryFilter from "./components/CategoryFilter";
@@ -12,12 +11,9 @@ import useRestaurantData from "./hooks/useRestaurantData";
 import useRestaurantModal from "./hooks/useRestaurantModal";
 
 function App() {
-  const { selected, fetchRestaurants } = useRestaurantData();
+  const { selected } = useRestaurantData();
   const { isAddModalOpen } = useRestaurantModal();
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, [fetchRestaurants]);
   return (
     <>
       <Header />
@@ -38,15 +34,11 @@ function App() {
 }
 
 const FilterContainer = styled.section`
-  display: flex;
-  justify-content: space-between;
   padding: 0 16px;
   margin-top: 24px;
 `;
 
 const ListContainer = styled.section`
-  display: flex;
-  flex-direction: column;
   padding: 0 16px;
   margin: 16px 0;
 `;
