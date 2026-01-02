@@ -12,7 +12,16 @@ const categoryIcon = {
 };
 
 export default function RestaurantList() {
-  const { filteredRestaurants, selectRestaurant } = useRestaurantData();
+  const { filteredRestaurants, selectRestaurant, isLoading, isError, error } =
+    useRestaurantData();
+
+  if (isLoading) {
+    return <StateText>불러오는 중...</StateText>;
+  }
+
+  if (isError) {
+    return <StateText>{error.message}</StateText>;
+  }
 
   return (
     <List>
@@ -38,6 +47,12 @@ export default function RestaurantList() {
     </List>
   );
 }
+
+const StateText = styled.p`
+  padding: 16px 8px;
+  color: var(--grey-300);
+  ${typography.body}
+`;
 
 const List = styled.ul``;
 
@@ -70,7 +85,6 @@ const CategoryIcon = styled.img`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 `;
 
 const RestaurantName = styled.h3`
