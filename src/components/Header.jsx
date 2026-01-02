@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import useRestaurantModalContext from "../hooks/useRestaurantModalContext";
+import useRestaurantModal from "../hooks/useRestaurantModal";
 
 export default function Header() {
-  const { openAddModal } = useRestaurantModalContext();
+  const { openAddModal } = useRestaurantModal();
 
   return (
     <Gnb>
