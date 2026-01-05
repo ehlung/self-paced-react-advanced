@@ -16,11 +16,11 @@ export default function RestaurantList() {
     useRestaurantData();
 
   if (isLoading) {
-    return <StateText>불러오는 중...</StateText>;
+    return <StatusText>불러오는 중...</StatusText>;
   }
 
   if (isError) {
-    return <StateText>{error.message}</StateText>;
+    return <StatusText>{error.message}</StatusText>;
   }
 
   return (
@@ -48,7 +48,7 @@ export default function RestaurantList() {
   );
 }
 
-const StateText = styled.p`
+const StatusText = styled.p`
   padding: 16px 8px;
   color: var(--grey-300);
   ${typography.body}
